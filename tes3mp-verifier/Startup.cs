@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using tes3mp_verifier.Data;
+using tes3mp_verifier.Services;
 
 namespace tes3mp_verifier
 {
@@ -23,6 +24,8 @@ namespace tes3mp_verifier
       services.AddDbContext<VerifierContext>(options => {
         options.UseNpgsql(Configuration.GetConnectionString("VerifierContext"));
       });
+
+      services.AddSingleton<IPasswordHasher, BcryptPasswordHasher>();
 
       services.AddControllers();
       services.AddRouting(options => {});

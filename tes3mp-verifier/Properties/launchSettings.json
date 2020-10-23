@@ -17,7 +17,6 @@
     },
     "tes3mp_verifier": {
       "commandName": "Project",
-      "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

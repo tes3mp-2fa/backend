@@ -64,8 +64,7 @@ namespace tes3mp_verifier.Data
         .Property(s => s.Password)
         .IsRequired();
       builder.Entity<User>()
-        .Property(s => s.PhoneNumber)
-        .IsRequired();
+        .Property(s => s.PhoneNumber);
 
       builder.Entity<User>()
         .HasIndex(u => u.Nickname)
