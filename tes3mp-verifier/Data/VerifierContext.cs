@@ -70,6 +70,9 @@ namespace tes3mp_verifier.Data
         .HasIndex(u => u.Nickname)
         .IsUnique();
       builder.Entity<User>()
+        .HasIndex(u => u.Email)
+        .IsUnique();
+      builder.Entity<User>()
         .HasIndex(u => u.PhoneNumber)
         .IsUnique();
     }
