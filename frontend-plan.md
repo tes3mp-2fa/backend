@@ -52,7 +52,8 @@ Login and registration forms
 
 ## My profile
 
-* edit user info
+* change email
+* change password
 * verify phone number
 * change settings
 * list of recent logins

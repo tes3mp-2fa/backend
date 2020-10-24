@@ -24,6 +24,15 @@ namespace tes3mp_verifier.API.Controllers
       _userManager = userManager;
       _context = context;
     }
+   
+    [HttpGet]
+    [Route("")]
+    public async Task<GameServer> Get([FromQuery] int id)
+    {
+      return await _context.GameServers
+        .Where(s => s.Id == id)
+        .FirstOrDefaultAsync();
+    }
 
     public class CreateInput
     {
@@ -85,9 +94,9 @@ namespace tes3mp_verifier.API.Controllers
     [Route("list")]
     public async Task<ICollection<GameServer>> List([FromQuery] int id, [FromQuery] int page = 1)
     {
-      return await new PaginateWithOverflow<GameServer>(page, 10).ToListAsync(
-        _context.GameServers
-        .Where(s => s.OwnerId == id)
+      var paginate = new PaginateWithOverflow<GameServer>(page, 10);
+      return await paginate.ToListAsync(
+        _context.GameServers.Where(s => s.OwnerId == id)
       );
     }
   }

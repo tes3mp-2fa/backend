@@ -96,5 +96,15 @@ namespace tes3mp_verifier.API
       var httpContext = _httpContextAccessor.HttpContext;
       await httpContext.SignOutAsync();
     }
+
+    public bool CorrectPassword(User user, string password)
+    {
+      return _hasher.Verify(password, user.Password);
+    }
+
+    public void UpdatePassword(User user, string password)
+    {
+      user.Password = _hasher.Hash(password);
+    }
   }
 }
