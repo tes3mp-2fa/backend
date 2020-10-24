@@ -90,5 +90,11 @@ namespace tes3mp_verifier.API
 
       return currentUser;
     }
+
+    public async Task Logout()
+    {
+      var httpContext = _httpContextAccessor.HttpContext;
+      await httpContext.SignOutAsync();
+    }
   }
 }

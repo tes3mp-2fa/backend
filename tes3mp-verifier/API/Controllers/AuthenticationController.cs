@@ -65,5 +65,13 @@ namespace tes3mp_verifier.API.Controllers
       await _userManager.Login(input.Nickname, input.Password);
       return Ok();
     }
+
+    [HttpGet]
+    [Route("logout")]
+    public async Task<ActionResult> Logout()
+    {
+      await _userManager.Logout();
+      return Ok();
+    }
   }
 }
