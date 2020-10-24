@@ -9,7 +9,7 @@ using tes3mp_verifier.Data.Models;
 
 namespace tes3mp_verifier.API.Controllers
 {
-  [Route("verify")]
+  [ApiRoute("verify")]
   [ApiController]
   public class VerificationController : ControllerBase
   {
@@ -59,12 +59,16 @@ namespace tes3mp_verifier.API.Controllers
       var user = await _userManager.CurrentUser();
       var verification = await _context.Verifications
         .Where(s => s.UserId == user.Id)
+        .Where(s => s.Confirmed == null)
         .OrderByDescending(s => s.Created)
         .FirstOrDefaultAsync();
       if (verification == null) return NotFound();
 
       if (verification.Password == input.Password)
+      {
         verification.Confirmed = DateTime.Now;
+        await _context.SaveChangesAsync();
+      }
       else
         return BadRequest();
 
