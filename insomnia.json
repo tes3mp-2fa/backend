@@ -1,1 +1,189 @@
-{"_type":"export","__export_format":4,"__export_date":"2020-10-24T11:44:13.115Z","__export_source":"insomnia.desktop.app:v2020.4.1","resources":[{"_id":"req_d63a57eb865a43c4953fa5c30f6eb787","parentId":"fld_1bb370cde93045d980f33f7c7a40c8de","modified":1603539797274,"created":1603485215176,"url":"{{base_url}}{{dir}}register/","name":"Register","description":"","method":"POST","body":{"mimeType":"application/json","text":"{\n\t\"Nickname\": \"test\",\n\t\"Email\": \"test@test\",\n\t\"Password\": \"test1234\"\n}"},"parameters":[],"headers":[{"name":"Content-Type","value":"application/json","id":"pair_289e86a6309d43cf99ccf26aef031025"}],"authentication":{},"metaSortKey":-1603539693201,"isPrivate":false,"settingStoreCookies":true,"settingSendCookies":true,"settingDisableRenderRequestBody":false,"settingEncodeUrl":true,"settingRebuildPath":true,"settingFollowRedirects":"global","_type":"request"},{"_id":"fld_1bb370cde93045d980f33f7c7a40c8de","parentId":"wrk_c0f9c2423afb4e27aa88886b36579e31","modified":1603539780568,"created":1603539744964,"name":"auth","description":"","environment":{"dir":"auth/"},"environmentPropertyOrder":{"&":["dir"]},"metaSortKey":-1603539744964,"_type":"request_group"},{"_id":"wrk_c0f9c2423afb4e27aa88886b36579e31","parentId":null,"modified":1603485201411,"created":1603485201411,"name":"TES3MP Verifier","description":"","scope":null,"_type":"workspace"},{"_id":"req_febd45a88281406db3f0bc9421b4036a","parentId":"fld_1bb370cde93045d980f33f7c7a40c8de","modified":1603539790552,"created":1603539016051,"url":"{{base_url}}{{dir}}login","name":"Login","description":"","method":"POST","body":{"mimeType":"application/json","text":"{\n\t\"Nickname\": \"test\",\n\t\"Password\": \"test1234\"\n}"},"parameters":[],"headers":[{"name":"Content-Type","value":"application/json","id":"pair_f09af9df83c94b5cbfddcc5fb4bad15f"}],"authentication":{},"metaSortKey":-1603539693151,"isPrivate":false,"settingStoreCookies":true,"settingSendCookies":true,"settingDisableRenderRequestBody":false,"settingEncodeUrl":true,"settingRebuildPath":true,"settingFollowRedirects":"global","_type":"request"},{"_id":"req_3e19e845561d43c7835baacaf569a356","parentId":"fld_1bb370cde93045d980f33f7c7a40c8de","modified":1603539795215,"created":1603539693101,"url":"{{base_url}}{{dir}}logout","name":"Logout","description":"","method":"GET","body":{},"parameters":[],"headers":[],"authentication":{},"metaSortKey":-1603539693101,"isPrivate":false,"settingStoreCookies":true,"settingSendCookies":true,"settingDisableRenderRequestBody":false,"settingEncodeUrl":true,"settingRebuildPath":true,"settingFollowRedirects":"global","_type":"request"},{"_id":"env_6b9ba1f61853875fc37a3f484ec01a0373a0b46e","parentId":"wrk_c0f9c2423afb4e27aa88886b36579e31","modified":1603485259202,"created":1603485201445,"name":"Base Environment","data":{},"dataPropertyOrder":{},"color":null,"isPrivate":false,"metaSortKey":1603485201445,"_type":"environment"},{"_id":"jar_6b9ba1f61853875fc37a3f484ec01a0373a0b46e","parentId":"wrk_c0f9c2423afb4e27aa88886b36579e31","modified":1603539804605,"created":1603485201447,"name":"Default Jar","cookies":[{"key":".AspNetCore.Cookies","expires":"1970-01-01T00:00:00.000Z","domain":"localhost","path":"/","httpOnly":true,"extensions":["samesite=lax"],"hostOnly":true,"creation":"2020-10-24T11:33:38.810Z","lastAccessed":"2020-10-24T11:43:24.605Z","id":"8144750483612992"}],"_type":"cookie_jar"},{"_id":"spc_afd86484d7b74b76a2be0368fd712ebd","parentId":"wrk_c0f9c2423afb4e27aa88886b36579e31","modified":1603485201418,"created":1603485201418,"fileName":"TES3MP Verifier","contents":"","contentType":"yaml","_type":"api_spec"},{"_id":"env_d706d2c6badb4ddda9f1ecd9a3718ad2","parentId":"env_6b9ba1f61853875fc37a3f484ec01a0373a0b46e","modified":1603486599766,"created":1603485266432,"name":"Local","data":{"base_url":"http://localhost:5000/api/"},"dataPropertyOrder":{"&":["base_url"]},"color":null,"isPrivate":false,"metaSortKey":1603485266432,"_type":"environment"}]}
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2020-01-01T00:00:00.000Z",
+  "__export_source": "insomnia.desktop.app:v2020.4.1",
+  "resources": [
+    {
+      "_id": "wrk_c0f9c2423afb4e27aa88886b36579e31",
+      "parentId": null,
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "name": "TES3MP Verifier",
+      "description": "",
+      "scope": null,
+      "_type": "workspace"
+    },
+    {
+      "_id": "fld_1bb370cde93045d980f33f7c7a40c8de",
+      "parentId": "wrk_c0f9c2423afb4e27aa88886b36579e31",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "name": "auth",
+      "description": "",
+      "environment": {
+        "dir": "auth/"
+      },
+      "environmentPropertyOrder": {
+        "&": [
+          "dir"
+        ]
+      },
+      "metaSortKey": -1603539744964,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_3e19e845561d43c7835baacaf569a356",
+      "parentId": "fld_1bb370cde93045d980f33f7c7a40c8de",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "url": "{{base_url}}{{dir}}logout",
+      "name": "Logout",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1603539693101,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_d63a57eb865a43c4953fa5c30f6eb787",
+      "parentId": "fld_1bb370cde93045d980f33f7c7a40c8de",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "url": "{{base_url}}{{dir}}register/",
+      "name": "Register",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"Nickname\": \"test\",\n\t\"Email\": \"test@test\",\n\t\"Password\": \"test1234\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_289e86a6309d43cf99ccf26aef031025"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1603539693201,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_febd45a88281406db3f0bc9421b4036a",
+      "parentId": "fld_1bb370cde93045d980f33f7c7a40c8de",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "url": "{{base_url}}{{dir}}login",
+      "name": "Login",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"Nickname\": \"test\",\n\t\"Password\": \"test1234\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_f09af9df83c94b5cbfddcc5fb4bad15f"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1603539693151,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "jar_6b9ba1f61853875fc37a3f484ec01a0373a0b46e",
+      "parentId": "wrk_c0f9c2423afb4e27aa88886b36579e31",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "name": "Default Jar",
+      "cookies": [
+        {
+          "key": ".AspNetCore.Cookies",
+          "expires": "1970-01-01T00:00:00.000Z",
+          "domain": "localhost",
+          "path": "/",
+          "httpOnly": true,
+          "extensions": [
+            "samesite=lax"
+          ],
+          "hostOnly": true,
+          "creation": "2020-10-24T11:33:38.810Z",
+          "lastAccessed": "2020-10-24T11:43:24.605Z",
+          "id": "8144750483612992"
+        }
+      ],
+      "_type": "cookie_jar"
+    },
+    {
+      "_id": "spc_afd86484d7b74b76a2be0368fd712ebd",
+      "parentId": "wrk_c0f9c2423afb4e27aa88886b36579e31",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "fileName": "TES3MP Verifier",
+      "contents": "",
+      "contentType": "yaml",
+      "_type": "api_spec"
+    },
+    {
+      "_id": "env_6b9ba1f61853875fc37a3f484ec01a0373a0b46e",
+      "parentId": "wrk_c0f9c2423afb4e27aa88886b36579e31",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "name": "Base Environment",
+      "data": {},
+      "dataPropertyOrder": {},
+      "color": null,
+      "isPrivate": false,
+      "metaSortKey": 1603485201445,
+      "_type": "environment"
+    },
+    {
+      "_id": "env_d706d2c6badb4ddda9f1ecd9a3718ad2",
+      "parentId": "env_6b9ba1f61853875fc37a3f484ec01a0373a0b46e",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "name": "Local",
+      "data": {
+        "base_url": "http://localhost:5000/api/"
+      },
+      "dataPropertyOrder": {
+        "&": [
+          "base_url"
+        ]
+      },
+      "color": null,
+      "isPrivate": false,
+      "metaSortKey": 1603485266432,
+      "_type": "environment"
+    }
+  ]
+}
