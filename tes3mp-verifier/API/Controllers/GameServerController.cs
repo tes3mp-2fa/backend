@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using tes3mp_verifier.API.Validation;
 using tes3mp_verifier.Data;
 using tes3mp_verifier.Data.Models;
+using tes3mp_verifier.Data.Queries;
 
 namespace tes3mp_verifier.API.Controllers
 {
@@ -82,11 +83,12 @@ namespace tes3mp_verifier.API.Controllers
 
     [HttpGet]
     [Route("list")]
-    public async Task<ICollection<GameServer>> List([FromQuery] int id)
+    public async Task<ICollection<GameServer>> List([FromQuery] int id, [FromQuery] int page = 1)
     {
-      return await _context.GameServers
+      return await new PaginateWithOverflow<GameServer>(page, 10).ToListAsync(
+        _context.GameServers
         .Where(s => s.OwnerId == id)
-        .ToListAsync();
+      );
     }
   }
 }
