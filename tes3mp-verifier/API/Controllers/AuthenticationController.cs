@@ -34,7 +34,7 @@ namespace tes3mp_verifier.API.Controllers
     }
     [HttpPost]
     [Route("register")]
-    public async Task<ActionResult> Register([FromBody] RegisterInput input)
+    public async Task<IActionResult> Register([FromBody] RegisterInput input)
     {
       User user = new User()
       {
@@ -60,7 +60,7 @@ namespace tes3mp_verifier.API.Controllers
     }
     [HttpPost]
     [Route("login")]
-    public async Task<ActionResult> Login([FromBody] RegisterInput input)
+    public async Task<IActionResult> Login([FromBody] RegisterInput input)
     {
       await _userManager.Login(input.Nickname, input.Password);
       return Ok();
@@ -68,7 +68,7 @@ namespace tes3mp_verifier.API.Controllers
 
     [HttpGet]
     [Route("logout")]
-    public async Task<ActionResult> Logout()
+    public async Task<IActionResult> Logout()
     {
       await _userManager.Logout();
       return Ok();

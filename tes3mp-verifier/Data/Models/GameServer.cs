@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace tes3mp_verifier.Data.Models
 {
@@ -15,7 +16,9 @@ namespace tes3mp_verifier.Data.Models
     public DateTime Created { get; set; }
 
     public virtual User Owner { get; set; }
+    [JsonIgnore]
     public virtual ICollection<ApiKey> ApiKeys { get; set; }
+    [JsonIgnore]
     public virtual ICollection<Login> Logins { get; set; }
   }
 }
