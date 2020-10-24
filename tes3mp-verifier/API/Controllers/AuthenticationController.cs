@@ -1,37 +1,35 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
-using tes3mp_verifier.Data;
+using tes3mp_verifier.API.Validation;
 using tes3mp_verifier.Data.Models;
-using tes3mp_verifier.Services;
 
 namespace tes3mp_verifier.API.Controllers
 {
   [Route("api/auth")]
   [ApiController]
+  [AllowAnonymous]
   public class AuthenticationController : ControllerBase
   {
-    private IPasswordHasher hasher;
-    private VerifierContext context;
-    public AuthenticationController(IPasswordHasher _hasher, VerifierContext _context)
+    private readonly UserManager _userManager;
+
+    public AuthenticationController(UserManager userManager)
     {
-      hasher = _hasher;
-      context = _context;
+      _userManager = userManager;
     }
+
     public class RegisterInput
     {
       [Required]
-      [StringLength(50, MinimumLength = 3)]
-      [RegularExpression(
-        "^[a-zA-Z0-9\\-/\\.]+$"
-      )]
+      [StringLength(UserValidation.NICKNAME_MAX, MinimumLength = UserValidation.NICKNAME_MIN)]
+      [RegularExpression(UserValidation.NICKNAME_REGEX)]
       public string Nickname { get; set; }
-      [Required]
       [EmailAddress]
       public string Email { get; set; }
       [Required]
-      [RegularExpression("^.{8,}$")]
+      [StringLength(UserValidation.PASSWORD_MAX, MinimumLength = UserValidation.PASSWORD_MIN)]
       public string Password { get; set; }
     }
     [HttpPost]
@@ -42,12 +40,29 @@ namespace tes3mp_verifier.API.Controllers
       {
         Nickname = input.Nickname,
         Email = input.Email,
-        Password = hasher.Hash(input.Password),
+        Password = input.Password,
         Created = DateTime.Now
       };
-      context.Users.Add(user);
-      await context.SaveChangesAsync();
+      await _userManager.Register(user);
 
+      return Ok();
+    }
+
+    public class LoginInput
+    {
+      [Required]
+      [StringLength(UserValidation.NICKNAME_MAX, MinimumLength = UserValidation.NICKNAME_MIN)]
+      [RegularExpression(UserValidation.NICKNAME_REGEX)]
+      public string Nickname { get; set; }
+      [Required]
+      [StringLength(UserValidation.PASSWORD_MAX, MinimumLength = UserValidation.PASSWORD_MIN)]
+      public string Password { get; set; }
+    }
+    [HttpPost]
+    [Route("login")]
+    public async Task<ActionResult> Login([FromBody] RegisterInput input)
+    {
+      await _userManager.Login(input.Nickname, input.Password);
       return Ok();
     }
   }
