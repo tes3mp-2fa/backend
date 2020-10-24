@@ -11,7 +11,7 @@ using tes3mp_verifier.Data.Models;
 
 namespace tes3mp_verifier.API.Controllers
 {
-  [Route("api/gameserver")]
+  [ApiRoute("gameserver")]
   [ApiController]
   public class GameServerController : ControllerBase
   {

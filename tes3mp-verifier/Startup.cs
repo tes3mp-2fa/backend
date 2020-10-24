@@ -69,7 +69,7 @@ namespace tes3mp_verifier
     {
       endpoints.MapControllerRoute(
         name: "default",
-        pattern: "{controller=Home}/{action=Index}/{id?}"
+        pattern: "{controller}/{action}/{id?}"
       );
     }
 
