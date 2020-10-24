@@ -36,12 +36,17 @@ namespace tes3mp_verifier.API.Controllers
     [Route("register")]
     public async Task<IActionResult> Register([FromBody] RegisterInput input)
     {
-      User user = new User()
+      User user = new User
       {
         Nickname = input.Nickname,
         Email = input.Email,
         Password = input.Password,
-        Created = DateTime.Now
+        Created = DateTime.Now,
+        
+        Settings = new UserSettings
+        {
+          Data = UserSettingsData.Default()
+        }
       };
       await _userManager.Register(user);
 

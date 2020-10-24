@@ -64,9 +64,9 @@ namespace tes3mp_verifier.API
 
       return user;
     }
-
+    
     private User currentUser = null;
-    public async Task<User> CurrentUser()
+    public async Task<User> CurrentUser(Func<IQueryable<User>, IQueryable<User>> relations = null)
     {
       if (currentUser != null) return currentUser;
 
@@ -84,9 +84,12 @@ namespace tes3mp_verifier.API
         throw new AuthenticationException();
       }
 
-      currentUser = await _dbContext.Users
-        .Where(s => s.Id == id)
-        .FirstOrDefaultAsync();
+      var query = _dbContext.Users
+        .Where(s => s.Id == id);
+
+      if (relations != null) query = relations(query);
+
+      currentUser = await query.FirstOrDefaultAsync();
 
       return currentUser;
     }

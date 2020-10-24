@@ -1,11 +1,16 @@
-﻿namespace tes3mp_verifier.Data.Models
+﻿using System.Text.Json.Serialization;
+
+namespace tes3mp_verifier.Data.Models
 {
   public class UserSettings
   {
+    [JsonIgnore]
     public int Id { get; set; }
+    [JsonIgnore]
     public int UserId { get; set; }
     public UserSettingsData Data { get; set; }
 
+    [JsonIgnore]
     public virtual User User { get; set; }
   }
 

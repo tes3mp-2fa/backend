@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using tes3mp_verifier.API.Validation;
@@ -24,16 +25,16 @@ namespace tes3mp_verifier.API.Controllers
     [Route("me")]
     public async Task<User> Me()
     {
-      return await _userManager.CurrentUser();
+      return await _userManager.CurrentUser(q => q.Include(u => u.Settings));
     }
 
     public class ChangePasswordInput
     {
       [Required]
-      public string OldPassword;
+      public string OldPassword { get; set; }
       [Required]
       [StringLength(UserValidation.PASSWORD_MAX, MinimumLength = UserValidation.PASSWORD_MIN)]
-      public string NewPassword;
+      public string NewPassword { get; set; }
     }
     [HttpPost]
     [Route("change-password")]
@@ -52,10 +53,10 @@ namespace tes3mp_verifier.API.Controllers
     public class ChangeEmailInput
     {
       [Required]
-      public string Password;
+      public string Password { get; set; }
       [Required]
       [EmailAddress]
-      public string NewEmail;
+      public string NewEmail { get; set; }
     }
     [HttpPost]
     [Route("change-email")]
@@ -75,8 +76,8 @@ namespace tes3mp_verifier.API.Controllers
     [Route("change-settings")]
     public async Task<IActionResult> ChangeSettings([FromBody] UserSettingsData data)
     {
-      var user = await _userManager.CurrentUser();
-      // TODO
+      var user = await _userManager.CurrentUser(q => q.Include(u => u.Settings));
+      user.Settings.Data = data; // TODO: validation of settings?
       await _context.SaveChangesAsync();
 
       return Ok();

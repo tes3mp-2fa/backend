@@ -29,8 +29,88 @@
           "dir"
         ]
       },
-      "metaSortKey": -1603539744964,
+      "metaSortKey": -1603540916956,
       "_type": "request_group"
+    },
+    {
+      "_id": "fld_d5046c11c6fb4490a804bdcd357a2adc",
+      "parentId": "wrk_c0f9c2423afb4e27aa88886b36579e31",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "name": "gameserver",
+      "description": "",
+      "environment": {
+        "dir": "gameserver/"
+      },
+      "environmentPropertyOrder": {
+        "&": [
+          "dir"
+        ]
+      },
+      "metaSortKey": -1603540916906,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_0c6b355d0a29443fa78a724d961f1262",
+      "parentId": "fld_d5046c11c6fb4490a804bdcd357a2adc",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "url": "{{base_url}}{{dir}}update",
+      "name": "update",
+      "description": "",
+      "method": "PUT",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"Id\": 2,\n\t\"Name\": \"Test Server 2\",\n\t\"Description\": \"Temporary server\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_a04081fcfb3c48479f47ce7f7944c8da"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1603558657107,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_183f56a121c840929b5131b5a5550c57",
+      "parentId": "fld_d5046c11c6fb4490a804bdcd357a2adc",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "url": "{{base_url}}{{dir}}",
+      "name": "get",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [
+        {
+          "name": "id",
+          "value": "0",
+          "description": "",
+          "id": "pair_aba4fae80d2544719bc941143d25416b"
+        }
+      ],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1603575553145,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
     },
     {
       "_id": "req_3e19e845561d43c7835baacaf569a356",
@@ -56,6 +136,74 @@
       "_type": "request"
     },
     {
+      "_id": "req_77509d6798eb4390bd9c0bba8b4530d0",
+      "parentId": "fld_d5046c11c6fb4490a804bdcd357a2adc",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "url": "{{base_url}}{{dir}}list",
+      "name": "list",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [
+        {
+          "name": "id",
+          "value": "14",
+          "description": "",
+          "id": "pair_8a218da5470e44a8b5a427fefc6346c4"
+        },
+        {
+          "name": "page",
+          "value": "1",
+          "description": "",
+          "id": "pair_1ecaef4390cb4b62abff778b1fdf819f"
+        }
+      ],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1603541761069,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_b4271f881b4145bda49f33a31dd9b018",
+      "parentId": "fld_d5046c11c6fb4490a804bdcd357a2adc",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "url": "{{base_url}}{{dir}}create",
+      "name": "create",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"Name\": \"Test Server 13\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_58b9c540ab71459cad86aa5e2eb9e9c1"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1603575553195,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
       "_id": "req_d63a57eb865a43c4953fa5c30f6eb787",
       "parentId": "fld_1bb370cde93045d980f33f7c7a40c8de",
       "modified": 1600000000000,
@@ -68,7 +216,14 @@
         "mimeType": "application/json",
         "text": "{\n\t\"Nickname\": \"test\",\n\t\"Email\": \"test@test\",\n\t\"Password\": \"test1234\"\n}"
       },
-      "parameters": [],
+      "parameters": [
+        {
+          "name": "",
+          "value": "",
+          "description": "",
+          "id": "pair_040026d7b3a74b4b9a01ebeb32dda9d2"
+        }
+      ],
       "headers": [
         {
           "name": "Content-Type",
@@ -128,7 +283,7 @@
       "cookies": [
         {
           "key": ".AspNetCore.Cookies",
-          "expires": "1970-01-01T00:00:00.000Z",
+          "value": "CfDJ8NFaP0dU5RZHn1rzmdI7QKljEKjjoR3ZM8Z28l8NabwBDGRReeBG-o5BEkcy3JkW0PsPvVBeJo2cPsG0GwCsaEqrMyLrgTUhcNSzR4M-z1eht4j5mWhyS5E0acUZu8c1ItxE-eGy7ctzmvkxqgEGSJ2DCewTDRmHzY-oK42tU62zUiXoRZOKUxUmtt-2AssgARLmO48N5oBAQG3Vje_xPXjc5vpWkbIDZt3OCnvjjBpwvjSAovWjSApcOoBsMqSPqUNEtR2Gi21IRWHteB7J54RE_QaeINsS-S3qQ0w4li7o9_CT0nfIRVidsDRBox7rug",
           "domain": "localhost",
           "path": "/",
           "httpOnly": true,
@@ -137,8 +292,8 @@
           ],
           "hostOnly": true,
           "creation": "2020-10-24T11:33:38.810Z",
-          "lastAccessed": "2020-10-24T11:43:24.605Z",
-          "id": "8144750483612992"
+          "lastAccessed": "2020-10-24T13:48:24.676Z",
+          "id": "6120808390157173"
         }
       ],
       "_type": "cookie_jar"
@@ -173,7 +328,7 @@
       "created": 1600000000000,
       "name": "Local",
       "data": {
-        "base_url": "http://localhost:5000/api/"
+        "base_url": "http://127.0.0.1:5000/api/"
       },
       "dataPropertyOrder": {
         "&": [

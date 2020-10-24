@@ -25,7 +25,7 @@ namespace tes3mp_verifier.API.Controllers
     public class RequestInput
     {
       [Required]
-      public string PhoneNumber;
+      public string PhoneNumber { get; set; }
     }
     [HttpPost]
     [Route("start")]
@@ -50,7 +50,7 @@ namespace tes3mp_verifier.API.Controllers
     public class ConfirmInput
     {
       [Required]
-      public string Password;
+      public string Password { get; set; }
     }
     [HttpPost]
     [Route("confirm")]
