@@ -17,15 +17,18 @@ namespace tes3mp_verifier.API.Controllers
     private readonly UserManager _userManager;
     private readonly VerifierContext _context;
     private readonly PhoneVerifier _verifier;
+    private readonly PhoneNumberHasher _hasher;
 
     public VerificationController(
       UserManager userManager,
       VerifierContext context,
-      PhoneVerifier verifier)
+      PhoneVerifier verifier,
+      PhoneNumberHasher hasher)
     {
       _userManager = userManager;
       _context = context;
       _verifier = verifier;
+      _hasher = hasher;
     }
 
     public class RequestInput
@@ -38,10 +41,9 @@ namespace tes3mp_verifier.API.Controllers
     public async Task<IActionResult> Start([FromBody] RequestInput input)
     {
       var user = await _userManager.CurrentUser();
-      user.PhoneNumber = input.PhoneNumber; // TODO: hash the phone number
+      user.PhoneNumber = _hasher.Hash(input.PhoneNumber);
 
       var password = _verifier.SendSMS(input.PhoneNumber);
-
       var verification = new Verification()
       {
         User = user,
@@ -49,6 +51,7 @@ namespace tes3mp_verifier.API.Controllers
         Created = DateTime.Now,
         Confirmed = null
       };
+
       await _context.Verifications.AddAsync(verification);
       await _context.SaveChangesAsync();
 
