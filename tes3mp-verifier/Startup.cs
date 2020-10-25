@@ -67,6 +67,7 @@ namespace tes3mp_verifier
       services.AddScoped<UserManager>();
 
       services.AddSingleton<RegularTask, CleanLoginKeys>();
+      services.AddSingleton<RegularTask, CancelVerifications>();
       services.AddHostedService<Scheduler>();
 
       services.AddHttpContextAccessor();

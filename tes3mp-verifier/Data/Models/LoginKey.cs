@@ -6,7 +6,7 @@ namespace tes3mp_verifier.Data.Models
 {
   public class LoginKey
   {
-    public static TimeSpan VALID_FOR = TimeSpan.FromMinutes(1);
+    public static readonly TimeSpan VALID_FOR = TimeSpan.FromMinutes(1);
 
     [Key]
     public string Key { get; set; }

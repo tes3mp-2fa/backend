@@ -39,5 +39,14 @@ namespace tes3mp_verifier.Services
 
       return result.status == "0";
     }
+
+    public void Cancel(string requestId)
+    {
+      client.NumberVerify.Control(new NumberVerify.ControlRequest
+      {
+        cmd = "cancel",
+        request_id = requestId
+      });
+    }
   }
 }

@@ -4,5 +4,6 @@
   {
     public string SendSMS(string phoneNumber);
     public bool Check(string requestId, string code);
+    public void Cancel(string requestId);
   }
 }
