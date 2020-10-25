@@ -10,6 +10,8 @@ using tes3mp_verifier.Data;
 using tes3mp_verifier.Services;
 using System.Threading.Tasks;
 using tes3mp_verifier.API;
+using tes3mp_verifier.Scheduling;
+using tes3mp_verifier.Scheduling.Tasks;
 
 namespace tes3mp_verifier
 {
@@ -62,6 +64,9 @@ namespace tes3mp_verifier
       services.AddSingleton<ApiKeyGenerator>();
       services.AddSingleton<LoginKeyGenerator>();
       services.AddScoped<UserManager>();
+
+      services.AddSingleton<RegularTask, CleanLoginKeys>();
+      services.AddHostedService<Scheduler>();
 
       services.AddHttpContextAccessor();
       services.AddControllers();
