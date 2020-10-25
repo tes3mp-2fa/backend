@@ -13,7 +13,7 @@ namespace tes3mp_verifier.Scheduling.Tasks
   {
     public TimeSpan Interval()
     {
-      return TimeSpan.FromSeconds(1);
+      return Verification.VALID_FOR;
     }
 
     public async Task Run(IServiceProvider services)

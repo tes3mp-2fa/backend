@@ -6,7 +6,7 @@ namespace tes3mp_verifier.Data.Models
 {
   public class Verification
   {
-    public static readonly TimeSpan VALID_FOR = TimeSpan.FromHours(1);
+    public static readonly TimeSpan VALID_FOR = TimeSpan.FromMinutes(5);
     [Key]
     public int Id { get; set; }
     public int UserId { get; set; }
