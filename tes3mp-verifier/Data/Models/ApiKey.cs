@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-using tes3mp_verifier.Services;
 
 namespace tes3mp_verifier.Data.Models
 {
@@ -15,11 +14,11 @@ namespace tes3mp_verifier.Data.Models
     [JsonIgnore]
     public virtual GameServer GameServer { get; set; }
 
-    public static ApiKey Create(ApiKeyGenerator generator)
+    public static ApiKey Create(string key)
     {
       return new ApiKey
       {
-        Key = generator.Generate(),
+        Key = key,
         Created = DateTime.Now
       };
     }

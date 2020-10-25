@@ -1,10 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Threading.Tasks;
 using tes3mp_verifier.API.Validation;
 using tes3mp_verifier.Data;
 using tes3mp_verifier.Data.Models;
+using tes3mp_verifier.Services;
 
 namespace tes3mp_verifier.API.Controllers
 {
@@ -14,11 +17,16 @@ namespace tes3mp_verifier.API.Controllers
   {
     private readonly UserManager _userManager;
     private readonly VerifierContext _context;
+    private readonly LoginKeyGenerator _generator;
 
-    public UserController(UserManager userManager, VerifierContext context)
+    public UserController(
+      UserManager userManager,
+      VerifierContext context,
+      LoginKeyGenerator generator)
     {
       _userManager = userManager;
       _context = context;
+      _generator = generator;
     }
 
     [HttpGet]
@@ -81,6 +89,28 @@ namespace tes3mp_verifier.API.Controllers
       await _context.SaveChangesAsync();
 
       return Ok();
+    }
+
+    [HttpGet]
+    [Route("login-key")]
+    public async Task<LoginKey> GetLoginKey()
+    {
+      var user = await _userManager.CurrentUser(q => q.Include(u => u.LoginKeys));
+      var firstValid = DateTime.Now - LoginKey.VALID_FOR * 0.5;
+      var loginKey = user.LoginKeys
+        .Where(s => s.Created > firstValid)
+        .OrderBy(s => s.Created)
+        .LastOrDefault();
+
+      if(loginKey == null)
+      {
+        loginKey = LoginKey.Create(_generator.Generate());
+        loginKey.User = user;
+        await _context.LoginKeys.AddAsync(loginKey);
+        await _context.SaveChangesAsync();
+      }
+
+      return loginKey;
     }
   }
 }
