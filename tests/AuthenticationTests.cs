@@ -20,7 +20,7 @@ namespace tests
             .Options;
       var context = new VerifierContext(options);
 
-      var hasher = new Mock<IPasswordHasher>();
+      var hasher = new Mock<PasswordHasher>();
       hasher.Setup(x => x.Hash(It.IsAny<string>())).Returns("");
 
       var controller = new AuthenticationController(hasher.Object, context);

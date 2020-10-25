@@ -57,7 +57,8 @@ namespace tes3mp_verifier
 
       ConfigureAuthentication(services);
 
-      services.AddSingleton<IPasswordHasher, BcryptPasswordHasher>();
+      services.AddSingleton<PasswordHasher, BcryptPasswordHasher>();
+      services.AddSingleton<PhoneVerifier, VonagePhoneVerifier>();
       services.AddScoped<UserManager>();
 
       services.AddHttpContextAccessor();

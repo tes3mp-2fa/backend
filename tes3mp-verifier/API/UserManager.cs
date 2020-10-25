@@ -15,12 +15,12 @@ namespace tes3mp_verifier.API
   public class UserManager
   {
     private readonly VerifierContext _dbContext;
-    private readonly Services.IPasswordHasher _hasher;
+    private readonly Services.PasswordHasher _hasher;
     private readonly IHttpContextAccessor _httpContextAccessor;
 
     private const string CLAIM_ID = "Id";
 
-    public UserManager(VerifierContext dbContext, Services.IPasswordHasher hasher, IHttpContextAccessor httpContextAccessor)
+    public UserManager(VerifierContext dbContext, Services.PasswordHasher hasher, IHttpContextAccessor httpContextAccessor)
     {
       _dbContext = dbContext;
       _hasher = hasher;

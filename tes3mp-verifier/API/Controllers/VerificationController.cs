@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using tes3mp_verifier.Data;
 using tes3mp_verifier.Data.Models;
+using tes3mp_verifier.Services;
 
 namespace tes3mp_verifier.API.Controllers
 {
@@ -15,11 +16,16 @@ namespace tes3mp_verifier.API.Controllers
   {
     private readonly UserManager _userManager;
     private readonly VerifierContext _context;
+    private readonly PhoneVerifier _verifier;
 
-    public VerificationController(UserManager userManager, VerifierContext context)
+    public VerificationController(
+      UserManager userManager,
+      VerifierContext context,
+      PhoneVerifier verifier)
     {
       _userManager = userManager;
       _context = context;
+      _verifier = verifier;
     }
 
     public class RequestInput
@@ -34,10 +40,12 @@ namespace tes3mp_verifier.API.Controllers
       var user = await _userManager.CurrentUser();
       user.PhoneNumber = input.PhoneNumber; // TODO: hash the phone number
 
+      var password = _verifier.SendSMS(input.PhoneNumber);
+
       var verification = new Verification()
       {
         User = user,
-        Password = "", // TODO: implement an SMS verification API
+        Password = password,
         Created = DateTime.Now,
         Confirmed = null
       };
@@ -64,7 +72,7 @@ namespace tes3mp_verifier.API.Controllers
         .FirstOrDefaultAsync();
       if (verification == null) return NotFound();
 
-      if (verification.Password == input.Password)
+      if (_verifier.Check(verification.Password, input.Password))
       {
         verification.Confirmed = DateTime.Now;
         await _context.SaveChangesAsync();

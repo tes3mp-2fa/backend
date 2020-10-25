@@ -2,7 +2,7 @@
 
 namespace tes3mp_verifier.Services
 {
-  public class BcryptPasswordHasher: IPasswordHasher
+  public class BcryptPasswordHasher: PasswordHasher
   {
     public BcryptPasswordHasher(): base() {}
 
@@ -11,7 +11,7 @@ namespace tes3mp_verifier.Services
       return Bcrypt.HashPassword(password);
     }
 
-    bool IPasswordHasher.Verify(string inputPassword, string hashedPassword)
+    bool PasswordHasher.Verify(string inputPassword, string hashedPassword)
     {
       return Bcrypt.Verify(inputPassword, hashedPassword);
     }
