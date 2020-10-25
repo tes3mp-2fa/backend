@@ -93,7 +93,7 @@ namespace tes3mp_verifier.Data
     private void ConfigureVerification(ModelBuilder builder)
     {
       builder.Entity<Verification>()
-        .Property(s => s.Password)
+        .Property(s => s.Code)
         .IsRequired();
 
       builder.Entity<Verification>()

@@ -31,7 +31,7 @@ namespace tes3mp_verifier.Scheduling.Tasks
       {
         try
         {
-          verifier.Cancel(verification.Password);
+          verifier.Cancel(verification.Code);
         }
         catch (Exception) { }
       }

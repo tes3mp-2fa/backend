@@ -10,7 +10,7 @@ namespace tes3mp_verifier.Data.Models
     [Key]
     public int Id { get; set; }
     public int UserId { get; set; }
-    public string Password { get; set; }
+    public string Code { get; set; }
     public DateTime Created { get; set; }
     public DateTime? Confirmed { get; set; }
 

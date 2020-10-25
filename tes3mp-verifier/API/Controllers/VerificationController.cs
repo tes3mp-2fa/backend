@@ -60,11 +60,11 @@ namespace tes3mp_verifier.API.Controllers
       if (nonUnique != null) return BadRequest();
 
       user.PhoneNumber = hashedPhoneNumber;
-      var password = _verifier.SendSMS(input.PhoneNumber);
+      var code = _verifier.SendSMS(input.PhoneNumber);
       var verification = new Verification()
       {
         User = user,
-        Password = password,
+        Code = code,
         Created = DateTime.Now,
         Confirmed = null
       };
@@ -78,7 +78,7 @@ namespace tes3mp_verifier.API.Controllers
     public class ConfirmInput
     {
       [Required]
-      public string Password { get; set; }
+      public string Code { get; set; }
     }
     [HttpPost]
     [Route("confirm")]
@@ -88,7 +88,7 @@ namespace tes3mp_verifier.API.Controllers
       var verification = user.Verification;
       if (verification == null) return NotFound();
 
-      if (_verifier.Check(verification.Password, input.Password))
+      if (_verifier.Check(verification.Code, input.Code))
       {
         verification.Confirmed = DateTime.Now;
         await _context.SaveChangesAsync();
