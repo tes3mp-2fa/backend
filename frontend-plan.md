@@ -39,7 +39,7 @@
 
 ## Join
 
-* 2FA key generation
+* 2FA key generation +
 * instructions on how to use
 
 ## My servers
@@ -50,12 +50,12 @@
 ## My server
 
 * edit server info +
-* get an API key
+* get an API key +
 
 ## My profile
 
-* change email
-* change password
-* verify phone number
-* change settings
+* change email +
+* change password +
+* verify phone number +
+* change settings +
 * list of recent logins

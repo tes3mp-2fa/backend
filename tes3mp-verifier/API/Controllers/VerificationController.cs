@@ -40,9 +40,26 @@ namespace tes3mp_verifier.API.Controllers
     [Route("start")]
     public async Task<IActionResult> Start([FromBody] RequestInput input)
     {
-      var user = await _userManager.CurrentUser();
-      user.PhoneNumber = _hasher.Hash(input.PhoneNumber);
+      var user = await _userManager.CurrentUser(q => q.Include(u => u.Verification));
+      var hashedPhoneNumber = _hasher.Hash(input.PhoneNumber);
 
+      if (user.Verification != null)
+      {
+        if (user.PhoneNumber == hashedPhoneNumber)
+          return BadRequest();
+
+        _context.Remove(user.Verification);
+        user.Verification = null;
+      }
+
+      var nonUnique = await _context.Users
+        .Where(u => u.Id != user.Id)
+        .Where(u => u.PhoneNumber == hashedPhoneNumber)
+        .FirstOrDefaultAsync();
+
+      if (nonUnique != null) return BadRequest();
+
+      user.PhoneNumber = hashedPhoneNumber;
       var password = _verifier.SendSMS(input.PhoneNumber);
       var verification = new Verification()
       {
@@ -67,12 +84,8 @@ namespace tes3mp_verifier.API.Controllers
     [Route("confirm")]
     public async Task<IActionResult> Confirm([FromBody] ConfirmInput input)
     {
-      var user = await _userManager.CurrentUser();
-      var verification = await _context.Verifications
-        .Where(s => s.UserId == user.Id)
-        .Where(s => s.Confirmed == null)
-        .OrderByDescending(s => s.Created)
-        .FirstOrDefaultAsync();
+      var user = await _userManager.CurrentUser(q => q.Include(u => u.Verification));
+      var verification = user.Verification;
       if (verification == null) return NotFound();
 
       if (_verifier.Check(verification.Password, input.Password))

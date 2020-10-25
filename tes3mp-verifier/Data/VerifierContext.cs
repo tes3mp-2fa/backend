@@ -98,8 +98,8 @@ namespace tes3mp_verifier.Data
 
       builder.Entity<Verification>()
         .HasOne(s => s.User)
-        .WithMany(g => g.Verifications)
-        .HasForeignKey(s => s.UserId);
+        .WithOne(g => g.Verification)
+        .HasForeignKey<Verification>(s => s.UserId);
     }
 
     protected override void OnModelCreating(ModelBuilder builder)
