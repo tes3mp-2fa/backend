@@ -15,9 +15,9 @@ namespace tes3mp_verifier.Data.Models
     public string Description { get; set; }
     public DateTime Created { get; set; }
 
-    public virtual User Owner { get; set; }
     [JsonIgnore]
-    public virtual ICollection<ApiKey> ApiKeys { get; set; }
+    public virtual User Owner { get; set; }
+    public virtual ApiKey ApiKey { get; set; }
     [JsonIgnore]
     public virtual ICollection<Login> Logins { get; set; }
   }

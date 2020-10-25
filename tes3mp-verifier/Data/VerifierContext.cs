@@ -19,8 +19,8 @@ namespace tes3mp_verifier.Data
     {
       builder.Entity<ApiKey>()
         .HasOne(s => s.GameServer)
-        .WithMany(g => g.ApiKeys)
-        .HasForeignKey(s => s.GameServerId);
+        .WithOne(g => g.ApiKey)
+        .HasForeignKey<ApiKey>(s => s.GameServerId);
     }
 
     private void ConfigureGameServer(ModelBuilder builder)

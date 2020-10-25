@@ -22,9 +22,9 @@
 
 ## Server
 
-* server info
+* server info +
 * instructions to join
-* list of other servers by this user
+* list of other servers by this user +
 
 ## FAQ
 
@@ -33,7 +33,9 @@
 
 ## Auth
 
-Login and registration forms
+* Login +
+* Register +
+* Forgot password
 
 ## Join
 
@@ -42,12 +44,12 @@ Login and registration forms
 
 ## My servers
 
-* add a server
+* add a server +
 * links to [My Server](#My-server)
 
 ## My server
 
-* edit server info
+* edit server info +
 * get an API key
 
 ## My profile

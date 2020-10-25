@@ -20,6 +20,7 @@ namespace tes3mp_verifier.Data.Models
     public virtual UserSettings Settings { get; set; }
     [JsonIgnore]
     public virtual ICollection<Login> Logins { get; set; }
+    [JsonIgnore]
     public virtual ICollection<GameServer> GameServers { get; set; }
     [JsonIgnore]
     public virtual ICollection<Verification> Verifications{ get; set; }

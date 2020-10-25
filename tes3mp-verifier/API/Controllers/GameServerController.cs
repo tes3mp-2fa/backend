@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using tes3mp_verifier.API.Validation;
 using tes3mp_verifier.Data;
 using tes3mp_verifier.Data.Models;
 using tes3mp_verifier.Data.Queries;
+using tes3mp_verifier.Services;
 
 namespace tes3mp_verifier.API.Controllers
 {
@@ -18,19 +20,37 @@ namespace tes3mp_verifier.API.Controllers
   {
     private readonly UserManager _userManager;
     private readonly VerifierContext _context;
+    private readonly ApiKeyGenerator _generator;
 
-    public GameServerController(UserManager userManager, VerifierContext context)
+    public GameServerController(
+      UserManager userManager,
+      VerifierContext context,
+      ApiKeyGenerator generator)
     {
       _userManager = userManager;
       _context = context;
+      _generator = generator;
     }
    
+    [AllowAnonymous]
     [HttpGet]
     [Route("")]
     public async Task<GameServer> Get([FromQuery] int id)
     {
       return await _context.GameServers
         .Where(s => s.Id == id)
+        .FirstOrDefaultAsync();
+    }
+
+    [HttpGet]
+    [Route("mine")]
+    public async Task<GameServer> Mine([FromQuery] int id)
+    {
+      var user = await _userManager.CurrentUser();
+      return await _context.GameServers
+        .Where(s => s.Id == id)
+        .Where(s => s.OwnerId == user.Id)
+        .Include(s => s.ApiKey)
         .FirstOrDefaultAsync();
     }
 
@@ -57,6 +77,7 @@ namespace tes3mp_verifier.API.Controllers
         Description = input.Description,
         Created = DateTime.Now
       };
+      gameServer.ApiKey = ApiKey.Create(_generator);
 
       _context.GameServers.Add(gameServer);
       await _context.SaveChangesAsync();
@@ -90,6 +111,7 @@ namespace tes3mp_verifier.API.Controllers
       return Ok();
     }
 
+    [AllowAnonymous]
     [HttpGet]
     [Route("list")]
     public async Task<ICollection<GameServer>> List([FromQuery] int id, [FromQuery] int page = 1)
@@ -98,6 +120,25 @@ namespace tes3mp_verifier.API.Controllers
       return await paginate.ToListAsync(
         _context.GameServers.Where(s => s.OwnerId == id)
       );
+    }
+
+    [HttpGet]
+    [Route("api-key")]
+    public async Task<ApiKey> NewApiKey([FromQuery] int id)
+    {
+      User user = await _userManager.CurrentUser();
+      GameServer gameServer = await _context.GameServers
+        .Where(s => s.Id == id)
+        .Where(s => s.OwnerId == user.Id)
+        .Include(s => s.ApiKey)
+        .FirstOrDefaultAsync();
+      if (gameServer == null) throw new Exception();
+
+      _context.ApiKeys.Remove(gameServer.ApiKey);
+      gameServer.ApiKey = ApiKey.Create(_generator);
+      await _context.SaveChangesAsync();
+
+      return gameServer.ApiKey;
     }
   }
 }

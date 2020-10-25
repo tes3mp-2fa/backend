@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace tes3mp_verifier.Data.Models
 {
@@ -12,6 +13,7 @@ namespace tes3mp_verifier.Data.Models
     public DateTime Created { get; set; }
     public DateTime? Confirmed { get; set; }
 
+    [JsonIgnore]
     public virtual User User { get; set; }
 
     public bool IsConfirmed()
