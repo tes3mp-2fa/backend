@@ -53,6 +53,9 @@ namespace tes3mp_verifier.Data
         .HasOne(s => s.User)
         .WithMany(g => g.LoginKeys)
         .HasForeignKey(s => s.UserId);
+
+      builder.Entity<LoginKey>()
+        .HasKey(s => new { s.Key, s.UserId });
     }
 
     private void ConfigureUser(ModelBuilder builder)

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 namespace tes3mp_verifier.Data.Models
@@ -8,7 +7,6 @@ namespace tes3mp_verifier.Data.Models
   {
     public static readonly TimeSpan VALID_FOR = TimeSpan.FromMinutes(1);
 
-    [Key]
     public string Key { get; set; }
     public int UserId { get; set; }
     public DateTime Created { get; set; }
