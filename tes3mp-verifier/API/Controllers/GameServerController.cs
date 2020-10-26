@@ -111,12 +111,13 @@ namespace tes3mp_verifier.API.Controllers
       return Ok();
     }
 
+    private const int LIST_PAGE_SIZE = 10;
     [AllowAnonymous]
     [HttpGet]
     [Route("list")]
     public async Task<ICollection<GameServer>> List([FromQuery] int id, [FromQuery] int page = 1)
     {
-      var paginate = new PaginateWithOverflow<GameServer>(page, 10);
+      var paginate = new PaginateWithOverflow<GameServer>(page, LIST_PAGE_SIZE);
       return await paginate.ToListAsync(
         _context.GameServers.Where(s => s.OwnerId == id)
       );
