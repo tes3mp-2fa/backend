@@ -77,7 +77,7 @@ namespace tes3mp_verifier.API.Controllers
         Description = input.Description,
         Created = DateTime.Now
       };
-      gameServer.ApiKey = ApiKey.Create(_generator.Generate());
+      gameServer.ApiKey = ApiKey.Create(await _generator.GenerateUnique());
 
       _context.GameServers.Add(gameServer);
       await _context.SaveChangesAsync();
@@ -135,7 +135,7 @@ namespace tes3mp_verifier.API.Controllers
       if (gameServer == null) throw new Exception();
 
       _context.ApiKeys.Remove(gameServer.ApiKey);
-      gameServer.ApiKey = ApiKey.Create(_generator.Generate());
+      gameServer.ApiKey = ApiKey.Create(await _generator.GenerateUnique());
       await _context.SaveChangesAsync();
 
       return gameServer.ApiKey;

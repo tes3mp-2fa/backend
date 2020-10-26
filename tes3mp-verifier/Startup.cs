@@ -62,8 +62,8 @@ namespace tes3mp_verifier
       services.AddSingleton<PasswordHasher, BcryptPasswordHasher>();
       services.AddSingleton<PhoneNumberHasher, SHAPhoneNumberHasher>();
       services.AddSingleton<PhoneVerifier, VonagePhoneVerifier>();
-      services.AddSingleton<ApiKeyGenerator>();
-      services.AddSingleton<LoginKeyGenerator>();
+      services.AddScoped<ApiKeyGenerator>();
+      services.AddScoped<LoginKeyGenerator>();
       services.AddScoped<UserManager>();
 
       services.AddSingleton<RegularTask, CleanLoginKeys>();
