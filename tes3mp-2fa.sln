@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30611.23
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tes3mp-verifier", "tes3mp-verifier\tes3mp-verifier.csproj", "{15A8F046-D051-4FDF-BF1E-179CF7A1B992}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tes3mp-2fa", "tes3mp-2fa\tes3mp-2fa.csproj", "{15A8F046-D051-4FDF-BF1E-179CF7A1B992}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tests", "tests\tests.csproj", "{BEDFFDCE-8027-4B8E-80CF-CEA7E9585BDC}"
 EndProject
