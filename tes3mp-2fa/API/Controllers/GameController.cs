@@ -32,7 +32,7 @@ namespace tes3mp_verifier.API.Controllers
       public ICollection<string> Errors { get; set; }
     };
 
-    protected async Task<bool> CheckApiKey(GameRequest request, GameResponse response)
+    protected async Task<ApiKey> CheckApiKey(GameRequest request, GameResponse response)
     {
       ApiKey apiKey = await _context.ApiKeys
           .Include(k => k.GameServer)
@@ -41,10 +41,9 @@ namespace tes3mp_verifier.API.Controllers
       if (apiKey == null)
       {
         response.Errors.Add("Invalid API key!");
-        return false;
       }
 
-      return true;
+      return apiKey;
     }
 
 
@@ -52,6 +51,7 @@ namespace tes3mp_verifier.API.Controllers
     {
       public string Nickname { get; set; }
       public string LoginKey { get; set; }
+      public string Ip { get; set; }
     }
     public class LoginResponse: GameResponse
     {
@@ -72,12 +72,13 @@ namespace tes3mp_verifier.API.Controllers
 
       try
       {
-        if (!await CheckApiKey(request, response))
-          return response;
+        ApiKey apiKey = await CheckApiKey(request, response);
+        if(apiKey == null) return response;
 
         LoginKey loginKey = await _context.LoginKeys
           .Include(k => k.User)
-            .ThenInclude(u => u.Verification)
+          .Include(u => u.User.Verification)
+          .Include(k => k.User.Settings)
           .Where(k => k.Key == request.LoginKey)
           .FirstOrDefaultAsync();
 
@@ -86,6 +87,18 @@ namespace tes3mp_verifier.API.Controllers
           response.Errors.Add("Invalid login key!");
           return response;
         }
+
+        Login login = new Login
+        {
+          GameServerId = apiKey.GameServer.Id,
+          UserId = loginKey.User.Id,
+          Ip = null,
+          Created = DateTime.Now
+        };
+        if (loginKey.User.Settings.Data.TrackIp) login.Ip = request.Ip;
+
+        await _context.Logins.AddAsync(login);
+        await _context.SaveChangesAsync();
 
         response.Success = true;
         response.Verified = loginKey.User.Verification != null && loginKey.User.Verification.IsConfirmed();
@@ -121,12 +134,12 @@ namespace tes3mp_verifier.API.Controllers
 
       try
       {
-        if (!await CheckApiKey(request, response))
+        if (await CheckApiKey(request, response) == null)
           return response;
 
         User user = await _context.Users
           .Include(u => u.Verification)
-          .Where(k => k.Nickname == request.Nickname)
+          .WhereNickname(request.Nickname)
           .FirstOrDefaultAsync();
 
         if (user != null)
