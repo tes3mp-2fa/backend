@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text.Json.Serialization;
 
@@ -23,6 +24,11 @@ namespace tes3mp_verifier.Data.Models
     [JsonIgnore]
     public string Password { get; set; }
     public DateTime Created { get; set; }
+
+    [NotMapped]
+    public bool Verified {
+      get { return Verification != null && Verification.Confirmed != null;  }
+    }
 
     public virtual UserSettings Settings { get; set; }
     [JsonIgnore]
