@@ -21,7 +21,7 @@ namespace tes3mp_verifier
     public static Func<VerifierContext> ContextFactory;
     private IConfiguration _configuration;
 
-    public Startup(IConfiguration configuration, IWebHostEnvironment environment)
+    public Startup(IConfiguration configuration)
     {
       _configuration = configuration;
       ContextFactory = () => GetContext();
@@ -61,10 +61,21 @@ namespace tes3mp_verifier
         });
     }
 
+    private const string CORS = "AllowedHosts";
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddDbContext<VerifierContext>(options => {
         options.UseNpgsql(_configuration.GetConnectionString("VerifierContext"));
+      });
+
+      services.AddCors(options => {
+        options.AddPolicy(
+          name: CORS,
+          builder => builder.WithOrigins(
+            "http://localhost:5000",
+            "http://localhost:8080"
+          )
+        );
       });
 
       ConfigureAuthentication(services);
@@ -101,6 +112,9 @@ namespace tes3mp_verifier
       }
 
       app.UseRouting();
+
+      app.UseCors(CORS);
+
 
       app.UseAuthentication();
       app.UseAuthorization();
