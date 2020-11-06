@@ -15,6 +15,17 @@ namespace tes3mp_verifier.Data
     public DbSet<ApiKey> ApiKeys { get; set; }
     public DbSet<Login> Logins { get; set; }
 
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+      ConfigureApiKey(builder);
+      ConfigureGameServer(builder);
+      ConfigureLogin(builder);
+      ConfigureLoginKey(builder);
+      ConfigureUser(builder);
+      ConfigureUserSettings(builder);
+      ConfigureVerification(builder);
+    }
+
     private void ConfigureApiKey(ModelBuilder builder)
     {
       builder.Entity<ApiKey>()
@@ -64,6 +75,9 @@ namespace tes3mp_verifier.Data
         .Property(s => s.Nickname)
         .IsRequired();
       builder.Entity<User>()
+        .Property(s => s.SearchNickname)
+        .IsRequired();
+      builder.Entity<User>()
         .Property(s => s.Password)
         .IsRequired();
       builder.Entity<User>()
@@ -71,6 +85,9 @@ namespace tes3mp_verifier.Data
 
       builder.Entity<User>()
         .HasIndex(u => u.Nickname)
+        .IsUnique();
+      builder.Entity<User>()
+        .HasIndex(u => u.SearchNickname)
         .IsUnique();
       builder.Entity<User>()
         .HasIndex(u => u.Email)
@@ -103,17 +120,6 @@ namespace tes3mp_verifier.Data
         .HasOne(s => s.User)
         .WithOne(g => g.Verification)
         .HasForeignKey<Verification>(s => s.UserId);
-    }
-
-    protected override void OnModelCreating(ModelBuilder builder)
-    {
-      ConfigureApiKey(builder);
-      ConfigureGameServer(builder);
-      ConfigureLogin(builder);
-      ConfigureLoginKey(builder);
-      ConfigureUser(builder);
-      ConfigureUserSettings(builder);
-      ConfigureVerification(builder);
     }
   }
 }

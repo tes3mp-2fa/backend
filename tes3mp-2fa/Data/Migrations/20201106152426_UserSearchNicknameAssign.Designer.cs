@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using tes3mp_verifier.Data;
@@ -9,9 +10,10 @@ using tes3mp_verifier.Data;
 namespace tes3mp_verifier.Data.Migrations
 {
     [DbContext(typeof(VerifierContext))]
-    partial class VerifierContextModelSnapshot : ModelSnapshot
+    [Migration("20201106152426_UserSearchNicknameAssign")]
+    partial class UserSearchNicknameAssign
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

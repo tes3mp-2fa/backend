@@ -42,7 +42,7 @@ namespace tes3mp_verifier.API
     public async Task<User> Login(string nickname, string password)
     {
       User user = await _dbContext.Users
-        .Where(s => s.Nickname == nickname)
+        .WhereNickname(nickname)
         .FirstAsync();
 
       if (!_hasher.Verify(password, user.Password))

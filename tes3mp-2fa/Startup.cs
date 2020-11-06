@@ -12,16 +12,26 @@ using System.Threading.Tasks;
 using tes3mp_verifier.API;
 using tes3mp_verifier.Scheduling;
 using tes3mp_verifier.Scheduling.Tasks;
+using System;
 
 namespace tes3mp_verifier
 {
   public class Startup
   {
-    private IConfiguration Configuration;
+    public static Func<VerifierContext> ContextFactory;
+    private IConfiguration _configuration;
 
-    public Startup(IConfiguration configuration)
+    public Startup(IConfiguration configuration, IWebHostEnvironment environment)
     {
-      Configuration = configuration;
+      _configuration = configuration;
+      ContextFactory = () => GetContext();
+    }
+
+    VerifierContext GetContext()
+    {
+      var builder = new DbContextOptionsBuilder<VerifierContext>();
+      builder.UseNpgsql(_configuration.GetConnectionString("VerifierContext"));
+      return new VerifierContext(builder.Options);
     }
 
     private void ConfigureAuthentication(IServiceCollection services)
@@ -54,7 +64,7 @@ namespace tes3mp_verifier
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddDbContext<VerifierContext>(options => {
-        options.UseNpgsql(Configuration.GetConnectionString("VerifierContext"));
+        options.UseNpgsql(_configuration.GetConnectionString("VerifierContext"));
       });
 
       ConfigureAuthentication(services);
